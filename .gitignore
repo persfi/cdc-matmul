@@ -1,0 +1,7 @@
+docs/
+*.vcd
+verif/build/
+.vscode/
+/program.hex
+CLAUDE.md
+.claude/
