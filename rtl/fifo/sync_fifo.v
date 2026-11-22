@@ -7,7 +7,7 @@ module sync_fifo #(
     input we,
     input re, 
     input [DATA_WIDTH-1:0] wr_data,
-    output [DATA_WIDTH-1:0] rd_data, //fwft
+    output [DATA_WIDTH-1:0] rd_data, 
     output full,
     output empty //or else the software would write with nothing actually happening or read old values
 );
@@ -27,12 +27,12 @@ module sync_fifo #(
         end
     end
 
-    always @(posedge clock) begin
+    always @(posedge clock) begin //separated from flops with rst
         if(we && !full) fifo[wr_ptr[PTR_WIDTH-1:0]] <= wr_data;
     end
 
     
-    assign rd_data = fifo[rd_ptr[PTR_WIDTH-1:0]];
+    assign rd_data = fifo[rd_ptr[PTR_WIDTH-1:0]]; //fwft
 
     assign full = (wr_ptr[PTR_WIDTH-1:0] == rd_ptr[PTR_WIDTH-1:0]) && wr_ptr[PTR_WIDTH]!=rd_ptr[PTR_WIDTH];
     assign empty = wr_ptr == rd_ptr;   
